@@ -5,6 +5,7 @@ A client-side password generator built with plain HTML, CSS and JavaScript. No d
 ## Run it
 1. Put all files in **one folder** and open that folder in VS Code (File > Open Folder).
 2. Install the **Live Server** extension, right-click `index.html`, choose **Open with Live Server**.
+3. Optional: run the tests with node test.js (Node 18+).
 
 ## Files
 | File | Role |
