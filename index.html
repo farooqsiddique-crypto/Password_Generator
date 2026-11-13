@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Strict CSP: only same-folder scripts/styles; no network requests, no inline code, no plugins. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="data:,">
+  <title>Atlas Password Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative compass rose in the background -->
+  <svg class="bg-compass" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width=".6"/>
+    <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width=".4" stroke-dasharray="2 4"/>
+    <path d="M100 8 L108 100 L100 192 L92 100 Z M8 100 L100 92 L192 100 L100 108 Z" fill="none" stroke="currentColor" stroke-width=".6"/>
+    <path d="M100 30 L106 100 L100 170 L94 100 Z" fill="currentColor" opacity=".25"/>
+  </svg>
+
+  <main class="app">
+    <p id="loadError" class="load-error">Atlas could not start. Open the project folder in VS Code and run it with the <b>Live Server</b> extension (do not double-click the file). Also check that <b>generator.js</b> and <b>app.js</b> are in the same folder as index.html.</p>
+    <header class="brand">
+      <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="21" fill="none" stroke="url(#g)" stroke-width="2"/>
+        <path d="M24 6 L29 24 L24 42 L19 24 Z" fill="url(#g)"/>
+        <path d="M6 24 L24 19 L42 24 L24 29 Z" fill="none" stroke="url(#g)" stroke-width="1.5"/>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6d27c"/><stop offset="1" stop-color="#c8902a"/></linearGradient></defs>
+      </svg>
+      <div>
+        <h1>Atlas</h1>
+        <p>Strong passwords, generated privately in your browser.</p>
+      </div>
+    </header>
+
+    <section class="output" aria-label="Generated password">
+      <output id="password" class="password placeholder" aria-live="off">Click “Generate password” to begin</output>
+      <p id="status" class="status" role="status"></p>
+      <p id="timer" class="timer"></p>
+      <div class="actions">
+        <button id="generate" type="button" class="primary">Generate password</button>
+        <button id="copy" type="button" class="ghost" disabled>Copy</button>
+        <button id="toggle" type="button" class="ghost" disabled>Hide</button>
+        <button id="clear" type="button" class="ghost" disabled>Clear</button>
+      </div>
+    </section>
+
+    <section class="strength" aria-label="Password strength">
+      <svg class="dial" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="track" cx="50" cy="50" r="44"/>
+        <circle id="dialArc" class="arc" cx="50" cy="50" r="44" transform="rotate(-90 50 50)"/>
+        <text id="bits" x="50" y="53" text-anchor="middle">–</text>
+        <text class="unit" x="50" y="67" text-anchor="middle">bits</text>
+      </svg>
+      <div>
+        <p class="strength-label" id="strengthLabel">No password yet</p>
+        <p class="muted" id="strengthNote">Generate a password to see how strong it is.</p>
+      </div>
+    </section>
+
+    <section class="options" aria-label="Options">
+      <div class="row">
+        <label for="length">Length</label>
+        <output id="lengthValue" for="length">16</output>
+      </div>
+      <input id="length" type="range" min="12" max="64" value="16">
+
+      <div class="tiles">
+        <label class="tile"><input type="checkbox" id="lower" checked><span class="box"><b>abc</b> Lowercase</span></label>
+        <label class="tile"><input type="checkbox" id="upper" checked><span class="box"><b>ABC</b> Uppercase</span></label>
+        <label class="tile"><input type="checkbox" id="digits" checked><span class="box"><b>123</b> Numbers</span></label>
+        <label class="tile"><input type="checkbox" id="symbols" checked><span class="box"><b>#$%</b> Symbols</span></label>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="ambiguous">
+        <span class="slider"></span>
+        <span>Avoid look-alike characters (I, l, 1, O, 0)</span>
+      </label>
+    </section>
+    <p class="foot">Locked down by a strict Content Security Policy: this page cannot send your password anywhere.</p>
+  </main>
+  <script src="generator.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
