@@ -14,6 +14,7 @@ A client-side password generator built with plain HTML, CSS and JavaScript. No d
 | `style.css` | Styling |
 | `generator.js` | Core logic (no DOM access, unit-testable) |
 | `app.js` | UI wiring, auto-clear, clipboard handling |
+| `test.js` | Automated tests and a source audit |
 
 ## Security design
 | Measure | Why |
